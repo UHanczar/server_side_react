@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev:server": "nodemon --watch build --exec \"node build/bundle.js\"",
-    "dev:build:server": "webpack --config webpack.config.server.js --watch",
-    "server": "concurrently \"yarn run dev:build:server\" \"yarn run dev:server\""
+    "dev:build-server": "webpack --config webpack.config.server.js --watch",
+    "dev:build-client": "webpack --config webpack.config.client.js --watch",
+    "server": "concurrently \"yarn run dev:build:server\" \"yarn run dev:server\" \"yarn run dev:build:client\"",
+    "dev": "npm-run-all --parallel dev:*"
   },
   "license": "MIT",
   "dependencies": {

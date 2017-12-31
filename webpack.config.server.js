@@ -1,6 +1,10 @@
 const path = require('path');
+const merge = require('webpack-merge');
+const webpackNodeExtertals = require('webpack-node-externals');
 
-module.exports = {
+const baseConfig = require('./webpack.config.base.js');
+
+const config = {
   // inform webpack that we're building a bundle for nodeJS, not for browser
   target: 'node',
   entry: './src/index.js',
@@ -8,20 +12,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
   },
-  module: {
-    rules: [
-      {
-        test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: [
-            'react',
-            'stage-0',
-            ['env', { targets: { browsers: ['last 2 versions'] } }]
-          ]
-        }
-      }
-    ]
-  }
+  externals: [webpackNodeExtertals()]
 };
+
+module.exports = merge(baseConfig, config);
