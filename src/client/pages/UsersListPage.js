@@ -4,36 +4,37 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions';
 
-class UsersList extends Component {
-  componentDidMount() {
+class UsersListPage extends Component {
+  componentWillMount() {
     this.props.fetchUsers();
   }
 
-  renderUsers() {
-    this.props.users.map(user => <li key={user.id}>{user.name}</li>)
-  }
   render() {
+    console.log('TP', this.props);
     return (
       <div>
         <h2>Here is the list of users:</h2>
         <ul>
-          {this.renderUsers()}
+          {this.props.users.map(user => <li key={user.id}>{user.name}</li>)}
         </ul>
       </div>
     );
   }
 }
 
-UsersList.propsTypes = {
+UsersListPage.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
-  users: PropTypes.objectOf({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
-  })
+  users: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const mapStateToProps = ({ users }) => ({
   users
 });
 
-export default connect(mapStateToProps, actions)(UsersList);
+const loadData = store => store.dispatch(actions.fetchUsers());
+
+export default {
+  loadData,
+  component: connect(mapStateToProps, actions)(UsersListPage)
+};
+
