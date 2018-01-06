@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 
+import 'materialize-css/dist/css/materialize.min.css'
+
 import store from './store';
 import Routes from './Routes';
 
