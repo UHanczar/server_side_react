@@ -1,4 +1,4 @@
-import { FETCH_USERS, FETCH_CURRENT_USER } from './types';
+import { FETCH_USERS, FETCH_ADMINS, FETCH_CURRENT_USER } from './types';
 
 const URL = 'http://react-ssr-api.herokuapp.com';
 
@@ -16,6 +16,15 @@ export const fetchCurrentUser = () => async (dispatch, getState, api) => {
 
   dispatch({
     type: FETCH_CURRENT_USER,
+    payload: res.data
+  });
+};
+
+export const fetchAdmins = () => async (dispatch, getState, api) => {
+  const res = await api.get('/admins');
+
+  dispatch({
+    type: FETCH_ADMINS,
     payload: res.data
   });
 };
